@@ -1,28 +1,39 @@
-# Prerequisites
-*.d
+# Build directories
+build/
+cmake-build-*/
+out/
 
-# Compiled Object files
-*.slo
-*.lo
+# Qt qmake build directories (e.g., Desktop_Qt_5_15_2_GCC_64bit-Debug)
+*-Debug/
+*-Release/
+*-RelWithDebInfo/
+*-MinSizeRel/
+
+# IDE and editor files
+.vscode/
+.idea/
+.qtcreator/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Compiled object files
 *.o
 *.obj
+*.slo
+*.lo
+*.ko
+*.mod.*
 
-# Precompiled Headers
+# Precompiled headers
 *.gch
 *.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
 
 # Compiled Dynamic libraries
 *.so
 *.dylib
 *.dll
-*.so.*
-
 
 # Fortran module files
 *.mod
@@ -38,32 +49,76 @@
 *.exe
 *.out
 *.app
+*.i*86
+*.x86_64
+*.hex
 
-# Build directories
-build/
-Build/
-build-*/
-
-# CMake generated files
+# Qt-specific files
+*.pro.user
+*.pro.shared
+*.cmakecache.txt
 CMakeFiles/
-CMakeCache.txt
 cmake_install.cmake
 Makefile
-install_manifest.txt
-compile_commands.json
+*.m4
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Qt Creator specific
+*.qmlcache
+qmlcache/*.cpp
+
+# MOC files (Meta-Object Compiler)
+moc_*.cpp
+moc_*.h
+
+# UI files (User Interface)
+ui_*.h
+
+# Resource files
+qrc_*.cpp
 
 # Temporary files
 *.tmp
+*.temp
 *.log
-*.bak
+
+# Coverage files
+*.gcda
+*.gcno
+*.gcov
+
+# Package files
+*.dmg
+*.pkg
+
+# Python virtual environments
+venv/
+env/
+.venv/
+.env/
+envs/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+
+# IDE and editor files
+.vscode/
+.idea/
 *.swp
+*.swo
+*~
+.DS_Store
 
-# vcpkg
-vcpkg_installed/
-
-# debug information files
-*.dwo
-
-# test output & cache
-Testing/
-.cache/
+# Build directories
+build/
+cmake-build-*/
+out/

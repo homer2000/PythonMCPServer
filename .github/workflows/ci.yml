@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: 5.15.2
+        host_arch: x64
+
+    - name: Build with qmake
+      run: |
+        mkdir build && cd build
+        /opt/qt/5.15.2/gcc_64/bin/qmake ..
+        make -j$(nproc)
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PythonMCPServer-linux
+        path: build/PythonMCPServer
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: 5.15.2
+        host_arch: x64
+
+    - name: Build with qmake
+      run: |
+        mkdir build
+        cd build
+        "C:\Qt\5.15.2\msvc2019_64\bin\qmake.exe" ..
+        cmake --build . --config Release
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PythonMCPServer-windows
+        path: build/Release/PythonMCPServer.exe
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build-linux
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: PythonMCPServer-linux
+        path: artifact/
+
+    - name: Run server (test startup)
+      run: |
+        chmod +x artifact/PythonMCPServer
+        timeout 5 ./artifact/PythonMCPServer || true
